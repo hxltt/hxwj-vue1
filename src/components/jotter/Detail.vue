@@ -15,7 +15,8 @@
         <i class="el-icon-view" ></i>
         <span>{{item.times}}</span>
 
-        <i class="el-icon-s-check" ></i>
+        <i v-show="!liketag" class="el-icon-s-check" @click="like()"></i>
+        <i v-show="liketag" class="el-icon-s-fold" @click="like()"></i>
         <span>{{item.times}}</span>
       </div>
 
@@ -81,7 +82,8 @@ export default {
         likes: '',
         content: ''
       }],
-      user: ''
+      user: '',
+      liketag: false
     }
   },
   created () {
@@ -103,6 +105,13 @@ export default {
     },
     editJotter () {
       this.edit = true
+    },
+    like () {
+      if (this.liketag) {
+        this.liketag = false
+      } else {
+        this.liketag = true
+      }
     }
   }
 }
@@ -112,11 +121,13 @@ export default {
 .jotter{
   /*background-color: ;*/
   background-color: #eeeeee;
-  width: 95%;
+  width: 85%;
   margin: auto;
   position: center;
   text-align: left;
-  box-shadow: 0 0 3px 3px #eaecef;
+  box-shadow: 0 0 3px 3px rgba(180,180,180,0.6);
+  /*display:table-cell;*/
+  border-radius: 2%;
 }
 .el-icon-user{
   padding-left: 30px;
@@ -143,13 +154,22 @@ span{
   margin-top: 8px;
 
 }
+.el-icon-s-fold{
+  margin-left: 30px;
+  background: url("../../assets/like-on.png") center center no-repeat;
+  background-size: 18px;
+}
+.el-icon-s-fold:before {
+  content: "11";
+  visibility: hidden;
+}
 .el-icon-s-check{
   margin-left: 30px;
-  background: url("../../assets/like.png") center center no-repeat;
+  background: url("../../assets/like-off.png") center center no-repeat;
+  /*background: url("src/assets/like.png") ;*/
   background-size: 18px;
 }
 .el-icon-s-check:before {
-
   content: "11";
   visibility: hidden;
 }

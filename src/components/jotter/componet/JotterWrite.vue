@@ -9,7 +9,7 @@
       :before-close="handleClose"
       ref="navDrawer"
       :with-header="false"
-       size="98%">
+       size="100%">
       <h3>{{this.message}}</h3>
       <i class="el-icon-circle-close" @click="closeDrawer()"></i>
       <el-container class="inputDeep" style="width: 60%; margin: auto;padding-top: 0;">
@@ -35,16 +35,16 @@
             type="textarea"
             :rows="20"
             placeholder="请输入正文"
-            v-model="content">
+            v-model="item.content">
             {{this.content}}
           </el-input>
           <el-divider></el-divider>
         </el-main>
 
         <!--权限单选框-->
-        <el-radio-group v-model="type" >
-          <el-radio label="1" >公开笔记</el-radio>
-          <el-radio label="0">仅自己可见</el-radio>
+        <el-radio-group v-model="item.permissions" >
+          <el-radio label="true" >公开笔记</el-radio>
+          <el-radio label="false">仅自己可见</el-radio>
         </el-radio-group>
 
         <!--保存提交按钮-->
@@ -68,16 +68,16 @@ export default {
       drawer: false,
       direction: 'ttb',
       message: '发布博客',
-      type: '1',
       save: false,
       item: {
-        user_id: '',
+        // user_id: '',
+        author: '',
         title: '',
         date: '',
         introduction: '',
-        permissions: ''
-      },
-      content: ''
+        permissions: 'true',
+        content: ''
+      }
     }
   },
   methods: {
@@ -88,15 +88,19 @@ export default {
         })
         .catch(_ => {})
     },
+    clear () {
+      this.item.title = ''
+      this.item.introduction = ''
+      this.item.content = ''
+      this.item.date = ''
+      this.permissions = 'true'
+      this.save = true
+    },
     closeDrawer () {
       if (this.save === false) {
         this.$confirm('文档未保存，是否确认关闭？')
           .then(_ => {
-            this.item.title = ''
-            this.item.introduction = ''
-            this.content = ''
-            this.type = '1'
-            this.save = false
+            this.clear()
             this.drawer = false
           })
           .catch(_ => {})
@@ -106,34 +110,38 @@ export default {
       }
     },
     submitJotter () {
-      // let param = {
-      //
-      //
-      //
-      // }
       this.item.date = this.getNowDate()
-      this.item.permissions = this.type
-      console.log(this.item.title)
-      console.log(this.item.introduction)
-      console.log(this.item.content)
-      console.log(this.item.date)
-      console.log(this.item)
+      // this.item.permissions = this.type
+      let item = JSON.parse(window.localStorage.getItem('user'))
+      let username = item.username
+      console.log(username)
+      this.item.author = item.username
+      console.log(this.author)
       this.$axios
         .post('/list', {
-          note: this.item,
-          content: this.content
+          author: this.item.author,
+          title: this.item.title,
+          introduction: this.item.introduction,
+          content: this.item.content,
+          permissions: this.item.permissions,
+          date: this.item.date
         })
-        // .then(resp => {
-        //   if (resp.data.code === 200) {
-        //     this.$alert('注册成功', '提示', {
-        //       confirmButtonText: '确定'
-        //     })
-        //   } else {
-        //     this.$alert(resp.data.message, '提示', {
-        //       confirmButtonText: '确定'
-        //     })
-        //   }
-        // })
+        .then(resp => {
+          if (resp.data.code === 200) {
+            this.$alert('发布成功', '提示', {
+              confirmButtonText: '确定',
+              callback: action => {
+                this.clear()
+                this.drawer = false
+              }
+
+            })
+          } else {
+            this.$alert(resp.data.message, '提示', {
+              confirmButtonText: '确定'
+            })
+          }
+        })
     },
     getNowDate () {
       const timeOne = new Date()

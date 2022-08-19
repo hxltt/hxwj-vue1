@@ -5,7 +5,7 @@
     mode="horizontal"
     background-color="white"
     text-color="#222"
-    active-text-color="red"
+    active-text-color="dodgerblue"
     style="min-width: 1300px">
 
     <!--  各个页面跳转按钮  -->
@@ -74,7 +74,6 @@ span {
   padding: 10px;
   margin-top: 5px;
   margin-right: 20px;
-  /*vertical-align: center;*/
 }
 
 </style>
