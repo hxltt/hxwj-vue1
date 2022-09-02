@@ -32,7 +32,7 @@ export default {
     return {
       loginForm: {
         username: 'admin',
-        password: '123'
+        password: '123456'
       },
       responseResult: []
     }
@@ -55,10 +55,18 @@ export default {
             _this.$store.commit('login', _this.loginForm)
             var path = this.$route.query.redirect
             this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
+          } else if (successResponse.data.code === 400) {
+            this.$message({
+              message: successResponse.data.message,
+              type: 'error'
+            })
           }
         })
         .catch(failResponse => {
-          console.log('success1')
+          this.$message({
+            message: '无法登录',
+            type: 'warning'
+          })
         })
     }
   }

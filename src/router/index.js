@@ -53,6 +53,11 @@ export default new Router({
           path: '/jotter/jotterWrite',
           name: 'jotterWrite',
           component: () => import('../components/jotter/componet/JotterWrite')
+        },
+        {
+          path: '/user',
+          name: 'user',
+          component: () => import('../components/user/User')
         }
       ]
     },

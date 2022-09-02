@@ -31,7 +31,7 @@ export default {
         {name: '/index', navItem: '首页'},
         {name: '/jotter', navItem: '笔记本'},
         {name: '/library', navItem: '图书馆'},
-        {name: '/admin', navItem: '个人中心'}
+        {name: '/user', navItem: '个人中心'}
       ]
     }
   },
@@ -43,6 +43,7 @@ export default {
           // 前后端状态保持一致
           _this.$store.commit('logout')
           _this.$router.replace('/login')
+          this.$message(resp.data.result)
         }
       })
     }
