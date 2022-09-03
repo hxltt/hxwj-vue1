@@ -6,11 +6,11 @@
       <!--   头像图片   -->
       <img src="http://localhost:8443/api/file/test.jpg" alt="头像">
       <!--   用户名   -->
-      <h4  >{{username}}</h4>
-      <!--   个性签名   -->
+      <h4 >{{username}}</h4>
+      <!--   个性签名   -->v-if
       <span v-show="signature_tag" @click="editSig()" class="signature">{{signature}}</span>
       <!--   个性签名编辑  -->
-      <el-input v-model="signature" @blur="editSig()" v-show="!signature_tag"  maxlength="20"></el-input>
+      <el-input id='input' v-model="signature" @blur="editSig()" v-show="!signature_tag"  maxlength="20"></el-input>
 
       <!--   导航栏   -->
       <el-menu
@@ -18,7 +18,7 @@
         class="el-menu-vertical-demo menu">
         <el-menu-item index="1" @click="show(index)">
           <!--    图标      -->
-          <i class="el-icon-menu"></i>
+          <i class="el-icon-plus"></i>
           <!--    导航名字      -->
           <span slot="title">个人信息</span>
         </el-menu-item>
@@ -41,7 +41,7 @@
     <!--  右侧展示模块  -->
     <div class="right">
       <!--   使用组件userinfo   -->
-      <UserInfo v-show="index"></UserInfo>
+      <UserInfo ></UserInfo>
     </div>
   </div>
 </template>
@@ -63,10 +63,10 @@ export default {
   methods: {
     // 点击个性签名事件
     editSig () {
-      if (this.signature_tag) {
-        document.getElementById('input').focus()
-        console.log('document.getElementById(\'input\').focus()')// 控制台输出
-      }
+      // if (this.signature_tag) {
+      //   document.getElementById('input').click()
+      //   console.log('document.getElementById(\'input\').focus()')// 控制台输出
+      // }
       this.signature_tag = !this.signature_tag // 改变切换标志的值
       console.log(this.signature_tag) // 控制台输出
     },
@@ -117,3 +117,5 @@ img{
 }
 
 </style>
+id
+class
