@@ -5,6 +5,17 @@
     <div class="left">
       <!--   头像图片   -->
       <img src="http://localhost:8443/api/file/test.jpg" alt="头像">
+
+      <!--   上传头像   -->
+<!--      <el-upload-->
+<!--        class="avatar-uploader"-->
+<!--        action="https://jsonplaceholder.typicode.com/posts/"-->
+<!--        :show-file-list="false"-->
+<!--        :on-success="handleAvatarSuccess"-->
+<!--        :before-upload="beforeAvatarUpload">-->
+<!--        <img v-if="imageUrl" :src="imageUrl" class="avatar">-->
+<!--        <i v-else class="el-icon-plus avatar-uploader-icon"></i>-->
+<!--      </el-upload>-->
       <!--   用户名   -->
       <h4 >{{username}}</h4>
       <!--   个性签名   -->
@@ -12,25 +23,26 @@
       <!--   个性签名编辑  -->
       <el-input id='input' v-model="signature" @blur="editSig()" v-show="!signature_tag"  maxlength="20"></el-input>
 
-      <!--   导航栏   -->
+      <!--   tab栏   -->
       <el-menu
         default-active="1"
         class="el-menu-vertical-demo menu">
-        <el-menu-item index="1" @click="show(index)">
+        <!--  点击修改index的值 -->
+        <el-menu-item index="1" @click="show(1)">
           <!--    图标      -->
           <i class="el-icon-plus"></i>
           <!--    导航名字      -->
           <span slot="title">个人信息</span>
         </el-menu-item>
-        <el-menu-item index="2" @click="show(index)">
+        <el-menu-item index="2" @click="show(2)">
           <i class="el-icon-document"></i>
           <span slot="title">修改密码</span>
         </el-menu-item>
-        <el-menu-item index="3" @click="show(index)">
+        <el-menu-item index="3" @click="show(3)">
           <i class="el-icon-menu"></i>
           <span slot="title">我的收藏</span>
         </el-menu-item>
-        <el-menu-item index="4" @click="show(index)">
+        <el-menu-item index="4" @click="show(4)">
           <i class="el-icon-setting"></i>
           <span slot="title">我的文章</span>
         </el-menu-item>
@@ -41,22 +53,27 @@
     <!--  右侧展示模块  -->
     <div class="right">
       <!--   使用组件userinfo   -->
-      <UserInfo></UserInfo>
+      <UserInfo v-if="index===1"></UserInfo>
+      <UserPad v-if="index===2"></UserPad>
     </div>
+
   </div>
 </template>
 
 <script>
 import UserInfo from './component/UserInfo'
+import UserPad from './component/UserPad'
 export default {
   name: 'User',
-  components: {UserInfo},
+  components: {UserInfo, UserPad},
   // 返回所要用的数据
   data () {
     return {
       username: 'hx', // 用户名
       signature: '成功是失败之母', // 个性签名
-      signature_tag: true // 个性签名切换的标志
+      signature_tag: true, // 个性签名切换的标志
+      imageUrl: 'http://localhost:8443/api/file/test.jpg',
+      index: 1
     }
   },
   // 方法区
@@ -71,8 +88,10 @@ export default {
       console.log(this.signature_tag) // 控制台输出
     },
     show (index) {
-      //  xsa
+      //  修改展示页面
+      this.index = index
     }
+
   }
 }
 </script>
