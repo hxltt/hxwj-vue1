@@ -7,7 +7,7 @@
       <img src="http://localhost:8443/api/file/test.jpg" alt="头像">
       <!--   用户名   -->
       <h4 >{{username}}</h4>
-      <!--   个性签名   -->v-if
+      <!--   个性签名   -->
       <span v-show="signature_tag" @click="editSig()" class="signature">{{signature}}</span>
       <!--   个性签名编辑  -->
       <el-input id='input' v-model="signature" @blur="editSig()" v-show="!signature_tag"  maxlength="20"></el-input>
@@ -41,7 +41,7 @@
     <!--  右侧展示模块  -->
     <div class="right">
       <!--   使用组件userinfo   -->
-      <UserInfo ></UserInfo>
+      <UserInfo></UserInfo>
     </div>
   </div>
 </template>
@@ -82,6 +82,7 @@ export default {
 .body{
   display: flex;     /*弹性布局，用于横向排列*/
   margin-top: 3%;    /*外边距顶部*/
+  height:550px;
   width: 80%;        /*宽度*/
   margin-left: auto; /*配合width使用,使div居中*/
   margin-right: auto;/*配合width使用,使div居中*/
@@ -105,11 +106,13 @@ img{
   width: 100px;      /*宽度*/
   height: 100px;     /*高度*/
   border-radius: 50%;/*圆角半径*/
+  margin-top: 55px;
 }
 /*菜单*/
 .menu{
   margin-top: 20px; /*顶部外边距*/
   border: none;     /*取消边框*/
+
 }
 /*个性签名*/
 .signature{
@@ -117,5 +120,3 @@ img{
 }
 
 </style>
-id
-class
