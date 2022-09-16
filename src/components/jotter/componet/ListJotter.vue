@@ -10,7 +10,7 @@
               <div style=" display: flex;justify-content: flex-start; ">
                 <i class="el-icon-view" style="  float:left;margin-bottom: auto"></i>
                 <span style="font-size: 14px;padding-left: 5px;padding-right: 35px;">{{list[i-1].times}}</span>
-                <i class="el-icon-s-check" style="  float:left;margin-bottom: auto"></i>
+                <i class="el-icon-s-check" style="float:left;margin-bottom: auto"></i>
                 <span style="font-size: 14px;padding-left: 5px;padding-right: 15px;">{{list[i-1].likes}}</span>
                 <span class="author">{{list[i-1].author}}</span>
                 <span class="date"> {{list[i-1].date}}</span>
