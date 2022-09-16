@@ -2,6 +2,10 @@
   <div>
     <el-button type="primary" icon="el-icon-edit" circle class="button"  @click="drawer = true"></el-button>
 
+<!--    滚动条-->
+<!--    :visible指的是属性绑定，表示弹框的显示隐藏，当:visible的值为ture的时候，弹框显示，当为false的时候，弹框隐藏 后面的.sync是什么意思呢，指的就是同步动态双向的来表示visible的值，当我们关闭窗口的时候，这个弹框隐藏了，visible的值发生了变化，但是关闭窗口这个动作，我们没法用确定的动作去判断这个值，所以用到了vue中的双向绑定的原则，在vue中统一加上了.sync来表示同步的修改了visible的值。-->
+<!--    before-close：关闭前的回调，会暂停 Dialog 的关闭，function(done)，done 用于关闭 Dialog。 location.reload：刷新整个页面-->
+
     <el-drawer
       title="wsdgak"
       :visible.sync="drawer"
