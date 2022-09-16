@@ -83,16 +83,16 @@
 
 <!--</style>-->
 <template>
-  <div>
+  <div :visible.sync="drawer">
 <!--    个人介绍-->
     <div style="display: flex" class="des">
     <span style="width:100px;height: auto;line-height:normal;line-height: 45px">个人介绍:</span>
-      <el-input v-model="description" style="width: 600px" maxlength="200"></el-input>
+      <el-input v-model="description" style="width: 600px" maxlength="400" @input="handlerChange"></el-input>
     </div>
 <!--    个性签名-->
     <div style="display: flex" class="sig">
       <span style="width:100px;height: auto;line-height: 45px">个人签名:</span>
-      <el-input v-model="signature" style="width: 600px" maxlength="30"></el-input>
+      <el-input v-model="signature" style="width: 600px" maxlength="30" @input="handlerChange"></el-input>
     </div>
 <!--    性别-->
     <div  style="display: flex" class="gen">
@@ -119,12 +119,12 @@
 <!--        地址-->
         <div style="display: flex" class="add">
           <span style="width: 100px;line-height: 45px">地址</span>
-          <el-input v-model="address" style="width: 600px" maxlength="100"></el-input>
+          <el-input v-model="address" style="width: 600px" maxlength="100" @input="handlerChange"></el-input>
         </div>
 <!--        职业-->
         <div style="display: flex" class="pro">
           <span style="width: 100px;line-height: 45px">职业</span>
-          <el-select v-model="profession" placeholder="请选择" class="select1">
+          <el-select v-model="profession" placeholder="请选择" class="select1" @select="handlerChange">
             <el-option
               v-for="item in options2"
               :key="item.value"
@@ -134,7 +134,7 @@
           </el-select>
         </div>
     <div>
-      <el-button class="buton" style="width:15%;background-color: aliceblue;position:absolute;">提交</el-button>
+      <el-button class="buton" type="primary" style="width:15%;" @click="submitInfo">提交</el-button>
     </div>
   </div>
 </template>
@@ -191,7 +191,7 @@ export default {
         value: '选项5',
         label: '学生'
       }, {
-        value: '选项5',
+        value: '选项6',
         label: '其他'
       }],
       profession: '',
@@ -199,7 +199,9 @@ export default {
       birthday: '',
       description: '',
       signature: '',
-      address: ''
+      address: '',
+      drawer: false,
+      isRewirteEditor: false
     }
   },
   // 初始化函数，页面加载时调用create里的东西
@@ -229,6 +231,63 @@ export default {
           this.profession = successResponse.data.result.profession
         }
       })
+    },
+    submitInfo () {
+      let item = JSON.parse(window.localStorage.getItem('user')) // key是user
+      let username = item.username
+      console.log(username)
+      // userInfo是接口地址，？后面是参数名（username），=后面是参数的值，data是参数的请求体
+      // http://localhost:8443/api/userInfo?username=admin
+      this.$axios
+        .post('userInfo?username=' + username, {
+          description: this.description,
+          signature: this.signature,
+          gender: this.gender,
+          birthday: this.birthday,
+          address: this.address,
+          profession: this.profession
+        })
+        .then(resp => {
+          if (resp.data.code === 200 && this.isRewirteEditor) {
+            this.$alert('提交成功', '提示', {
+              confirmButtonText: '确定',
+              callback: action => {
+                this.drawer = false
+              }
+
+            })
+          } else if (resp.data.code === 200 && !this.isRewirteEditor) {
+            this.$alert('数据未修改，请先修改数据在提交', '提示', {
+              confirmButtonText: '确定',
+              callback: action => {
+                this.drawer = false
+              }
+
+            })
+          } else {
+            this.$alert(resp.data.message, '提示', {
+              confirmButtonText: '确定'
+            })
+          }
+        })
+    },
+    handlerChange (e) {
+      console.log(e)
+      this.isRewirteEditor = true
+    }
+  },
+  watch: {
+    birthday () {
+      this.isRewirteEditor = true
+      console.log('发生了变化')
+    },
+    profession  () {
+      this.isRewirteEditor = true
+      console.log('发生了变化')
+    },
+    gender () {
+      this.isRewirteEditor = true
+      console.log('发生了变化')
     }
   }
 }
@@ -253,11 +312,12 @@ export default {
 .pro{
   margin-bottom: 20px;
 }
-.buton:hover{
-  color: navy;
-}
-.select1{
-  left: 0!important;
-  buttom: 400px!important;
-}
+/*.buton:hover{*/
+/*  color: #0366d6;*/
+/*}*/
+/*.buton{*/
+/*  border: none;*/
+/*  background-color: #99a9bf;*/
+/*  font-size: 40px;*/
+/*}*/
 </style>

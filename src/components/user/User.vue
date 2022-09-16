@@ -2,9 +2,9 @@
   <!-- 大div -->
   <div class="body">
     <!--  左侧操作模块  -->
-    <div class="left">
+    <div class="left" style="box-shadow: 0 0 20px #cac6c6;">
       <!--   头像图片   -->
-      <img src="http://localhost:8443/api/file/test.jpg" alt="头像">
+      <img src="http://" alt="头像">
 
       <!--   上传头像   -->
 <!--      <el-upload-->
@@ -30,20 +30,20 @@
         <!--  点击修改index的值 -->
         <el-menu-item index="1" @click="show(1)">
           <!--    图标      -->
-          <i class="el-icon-plus"></i>
+          <i class="el-icon-user" style="font-size:150%"></i>
           <!--    导航名字      -->
           <span slot="title">个人信息</span>
         </el-menu-item>
         <el-menu-item index="2" @click="show(2)">
-          <i class="el-icon-document"></i>
+          <i class="el-icon-edit-outline" style="font-size:140%"></i>
           <span slot="title">修改密码</span>
         </el-menu-item>
         <el-menu-item index="3" @click="show(3)">
-          <i class="el-icon-menu"></i>
+          <i class="el-icon-star-off" style="font-size:160%"></i>
           <span slot="title">我的收藏</span>
         </el-menu-item>
         <el-menu-item index="4" @click="show(4)">
-          <i class="el-icon-setting"></i>
+          <i class="el-icon-reading"></i>
           <span slot="title">我的文章</span>
         </el-menu-item>
       </el-menu>
@@ -51,10 +51,13 @@
     </div>
 
     <!--  右侧展示模块  -->
-    <div class="right">
+    <div class="right" style="box-shadow: 0 0 20px #cac6c6;">
       <!--   使用组件userinfo   -->
       <UserInfo v-if="index===1"></UserInfo>
       <UserPad v-if="index===2"></UserPad>
+      <Collection v-if="index===3"></Collection>
+     <Artical v-if="index===4"></Artical>
+
     </div>
 
   </div>
@@ -63,9 +66,11 @@
 <script>
 import UserInfo from './component/UserInfo'
 import UserPad from './component/UserPad'
+import Collection from './component/Collection'
+import Artical from './component/Artical'
 export default {
   name: 'User',
-  components: {UserInfo, UserPad},
+  components: {Artical, Collection, UserInfo, UserPad},
   // 返回所要用的数据
   data () {
     return {
@@ -118,7 +123,7 @@ export default {
 .right{
   background-color: white;/*背景颜色*/
   text-align:center ;     /*文字居中展示*/
-  width: 800px;           /*宽度设置*/
+  width: 900px;           /*宽度设置*/
 }
 /*头像*/
 img{
