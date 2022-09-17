@@ -83,7 +83,7 @@
 
 <!--</style>-->
 <template>
-  <div :visible.sync="drawer">
+  <div :visible.sync="drawer" style="margin:10% 8% auto">
 <!--    个人介绍-->
     <div style="display: flex" class="des">
     <span style="width:100px;height: auto;line-height:normal;line-height: 45px">个人介绍:</span>
@@ -95,8 +95,8 @@
       <el-input v-model="signature" style="width: 600px" maxlength="30" @input="handlerChange"></el-input>
     </div>
 <!--    性别-->
-    <div  style="display: flex" class="gen">
-      <span style="width:100px;height: auto;line-height: 45px">性别</span>
+    <div  style="display: flex;width: 700px" class="gen">
+      <span style="width:100px;height: auto;line-height: 45px">性别:</span>
       <el-select v-model="gender" placeholder="请选择">
         <el-option
           v-for="item in options"
@@ -105,10 +105,9 @@
           :value="item.value">
         </el-option>
       </el-select>
-    </div>
 <!--出生日期-->
-        <div style="display: flex" class="bir">
-        <span style="width: 100px;height: auto;line-height: 45px">出生日期</span>
+        <div style="display: inline-block;margin-left: auto" class="bir">
+        <span style="width: 100px;height: auto;line-height: 45px">出生日期:</span>
         <span class="demonstration"></span>
         <el-date-picker
           v-model="birthday"
@@ -116,14 +115,15 @@
           placeholder="选择日期">
         </el-date-picker>
       </div>
+    </div>
 <!--        地址-->
         <div style="display: flex" class="add">
-          <span style="width: 100px;line-height: 45px">地址</span>
+          <span style="width: 100px;line-height: 45px">地址:</span>
           <el-input v-model="address" style="width: 600px" maxlength="100" @input="handlerChange"></el-input>
         </div>
 <!--        职业-->
         <div style="display: flex" class="pro">
-          <span style="width: 100px;line-height: 45px">职业</span>
+          <span style="width: 100px;line-height: 45px">职业:</span>
           <el-select v-model="profession" placeholder="请选择" class="select1" @select="handlerChange">
             <el-option
               v-for="item in options2"
@@ -134,7 +134,7 @@
           </el-select>
         </div>
     <div>
-      <el-button class="buton" type="primary" style="width:15%;" @click="submitInfo">提交</el-button>
+      <el-button class="buton" type="primary" style="width:15%;margin-top: 30px" @click="submitInfo">提交</el-button>
     </div>
   </div>
 </template>
@@ -294,20 +294,20 @@ export default {
 </script>
 <style>
 .des {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   margin-top: 55px;
 }
 .sig {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 .gen{
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
-.bir{
-  margin-bottom: 20px;
-}
+/*.bir{*/
+/*  margin-bottom: 20px;*/
+/*}*/
 .add{
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 .pro{
   margin-bottom: 20px;
