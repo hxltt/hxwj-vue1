@@ -116,10 +116,9 @@ export default {
     submitJotter () {
       this.item.date = this.getNowDate()
       // this.item.permissions = this.type
-      let item = JSON.parse(window.localStorage.getItem('user'))
-      let username = item.username
+      let username = this.$store.state.user.username
       console.log(username)
-      this.item.author = item.username
+      this.item.author = username
       console.log(this.author)
       this.$axios
         .post('/list', {
