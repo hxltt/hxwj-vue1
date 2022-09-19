@@ -22,7 +22,8 @@ Vue.use(ElementUI)
 
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
-    if (store.state.user) {
+    console.log(store.state.user)
+    if (store.state.user.username) {
       axios.get('/authentication').then(resp => {
         if (resp) next()
       })
